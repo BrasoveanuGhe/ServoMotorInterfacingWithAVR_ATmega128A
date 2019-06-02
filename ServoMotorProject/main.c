@@ -27,32 +27,12 @@ bool seventyDegrees = false;
 bool ninetyDegrees = false;
 
 
-//PWM 16-bit Timer (50hz)
-// void PWM_init() 
-// {
-// 	TCCR3A = (1 << COM3A1) | (0 << COM3A0) | (1 << WGM11) | (0 >> WGM10); //inverted mode Fast-PWM
-// 	TCCR3B = (1 << WGM33) | (1 << WGM32) | (0 << CS32) | (1 << CS31) | (1 << CS30);
-// 	TCNT3 = 0;
-// 	ICR3 = 2303;  // Fast PWM with 50hz PWM frequency
-// 	// Servo pin direction
-// 	DDRE |= (1 << PINE3);
-// 	
-// 	
-// 	
-// }
-
 void delayFunc()
 {	
 	TCCR2 = (1 << WGM21) | (1 << CS22) | (1 << CS20);	// Prescaler 1024
-	TCNT2 = 0;											// Init counter 0
-	OCR2 = 72;											// Valoare de comparat (10 ms)
-	TIMSK |= (1 << OCIE2);								// Activare intrerupere timer
-	
-	//Init 16-bit Timer for delay
-	//TCCR1B = (1 << WGM12) | (1 << CS12);	// Prescalar 256
-	//TCNT1 = 0;								// Initializare counter 0
-	//OCR1A = 244;							// Valoarea de comparat 10ms .. pentru 5ms este 144, 1ms, este 28.8 =~ 29 iar 0.5ms 14.4
-	//TIMSK |= (1 << OCIE1A);					// Activare intrerupere timer
+	TCNT2 = 0;						// Init counter 0
+	OCR2 = 72;						// Valoare de comparat (10 ms)
+	TIMSK |= (1 << OCIE2);					// Activare intrerupere timer
 }
 
 
@@ -68,7 +48,7 @@ int main(void)
 	PORTD = (1 << PORTD0) | (1 << PORTD1) | (1 << PORTD2) | (1 << PORTD3);
 	// External interrupt
 	EICRA = (1 << ISC31) | (0 << ISC30) | (1 << ISC21) | (0 << ISC20) | (1 << ISC11) | (0 << ISC10) | (1 << ISC01) | (0 << ISC00);
-    EICRB = (1 << ISC71) | (0 << ISC70) | (1 << ISC61) | (0 << ISC60) | (1 << ISC51) | (0 << ISC50) | (1 << ISC41) | (0 << ISC40);
+    	EICRB = (1 << ISC71) | (0 << ISC70) | (1 << ISC61) | (0 << ISC60) | (1 << ISC51) | (0 << ISC50) | (1 << ISC41) | (0 << ISC40);
 	// External interrupt 
 	EIMSK = (1 << INT7) | (1 << INT6) | (1 << INT5) | (1 << INT4) | (1 << INT3) | (1 << INT2) | (1 << INT1) | (1 << INT0);
 	
@@ -78,13 +58,12 @@ int main(void)
 	// Pwm function for Servo		
 	pwm_InitServoMotor(&PORTE,PORTE3);
 	//pwm_InitServoMotor(&PORTB,PORTB5);
-	// PWM_init();
+
 	
 	sei();
 	
     do 
-    {		
-	
+    {			
     } while (1);
 }
 
